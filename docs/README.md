@@ -128,9 +128,8 @@ Caso sejam utilizadas imagens, sons, fontes ou outros recursos externos, eles se
 ## Integrantes
 
 * Felipe Gabriel Nogueira Aquino
-* Integrante 2
-* Integrante 3
-* Integrante 4
+* Leonardo Martins Macedo
+* Pedro Henrique Oliveira Maia
 
 ## Status do projeto
 
