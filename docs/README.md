@@ -87,7 +87,7 @@ projeto/
 
 ## Como executar
 
-As instruções completas de execução serão atualizadas nas próximas etapas do projeto, após a implementação do protótipo inicial.
+Para executar o protótipo inicial, instale as dependências e rode o arquivo principal do projeto.
 
 Previsão de execução:
 
@@ -135,4 +135,4 @@ Caso sejam utilizadas imagens, sons, fontes ou outros recursos externos, eles se
 
 Projeto em desenvolvimento.
 
-Etapa atual: Semana 1 — Proposta inicial.
+Etapa atual: Semana 2 — Protótipo inicial.

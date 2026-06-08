@@ -1,91 +1,138 @@
-# Nome do Jogo
+# Astro Rush
 
-Projeto final da disciplina de Introdução a Algoritmos/Programação, desenvolvido com Python e Pygame.
+Astro Rush é um jogo simples de sobrevivência e desvio de obstáculos desenvolvido em Python utilizando a biblioteca Pygame.
 
-Este repositório é um template para os grupos da disciplina. A proposta é começar com uma base funcional e evoluir o jogo ao longo do semestre.
-
-## Integrantes do grupo
-
-- Nome do integrante 1
-- Nome do integrante 2
-- Nome do integrante 3
-- Nome do integrante 4
-
-## Estrutura do projeto
-
-- `main.py`: ponto de entrada da aplicação.
-- `src/`: código-fonte principal do jogo (loop, regras, sprites e dados).
-- `assets/`: imagens, fontes e sons.
-- `data/`: arquivos persistentes (recorde/ranking).
-- `tests/`: testes unitários com `pytest`.
-- `docs/`: documentação do projeto, incluindo proposta inicial.
+O projeto faz parte da atividade final da disciplina, com o objetivo de aplicar conceitos estudados durante o período, como variáveis, estruturas condicionais, laços de repetição, listas, dicionários, funções, modularização, leitura e escrita de arquivos, testes e organização de código.
 
 ## Descrição do jogo
 
-Descreva brevemente a ideia principal do jogo.
+Em Astro Rush, o jogador controla uma nave espacial que deve desviar de meteoros que caem pela tela.
 
-Exemplo:
+O objetivo é sobreviver pelo maior tempo possível, acumulando pontos e tentando superar o próprio recorde. A dificuldade poderá aumentar conforme a partida avança, tornando os meteoros mais rápidos ou mais frequentes.
 
-> O jogo consiste em controlar um personagem que deve coletar moedas e evitar obstáculos. O jogador ganha pontos ao coletar itens e perde vidas ao colidir com obstáculos. A partida termina quando o tempo acaba ou quando o jogador perde todas as vidas.
+## Tipo de jogo
+
+Jogo de sobrevivência simples / nave desviando de meteoros.
 
 ## Objetivo do jogador
 
-Explique o que o jogador precisa fazer para vencer ou avançar no jogo.
+O jogador deve controlar a nave espacial, desviar dos meteoros e alcançar a maior pontuação possível antes de perder todas as vidas.
 
-Exemplo:
+## Regras principais
 
-> O objetivo é coletar a maior quantidade possível de itens antes que o tempo acabe, evitando colisões com os obstáculos.
+* O jogador controla uma nave espacial.
+* Os meteoros aparecem na parte superior da tela.
+* Os meteoros se movimentam para baixo.
+* O jogador deve desviar dos meteoros usando o teclado.
+* A pontuação aumenta enquanto o jogador permanece vivo.
+* Cada colisão com um meteoro remove uma vida.
+* A partida termina quando as vidas chegam a zero.
+* O jogo poderá salvar o maior recorde em um arquivo.
 
-## Regras do jogo
+## Controles previstos
 
-Liste as principais regras do jogo.
+* Seta para esquerda: mover a nave para a esquerda.
+* Seta para direita: mover a nave para a direita.
+* Tecla R: reiniciar a partida após o fim do jogo.
+* Tecla ESC: sair do jogo.
 
-Exemplo:
+## Funcionalidades previstas
 
-- O jogador se movimenta usando as setas do teclado.
-- Cada item coletado aumenta a pontuação.
-- Colidir com um obstáculo reduz a quantidade de vidas.
-- A partida termina quando o jogador perde todas as vidas ou quando o tempo acaba.
+* Janela principal do jogo com Pygame.
+* Nave controlável pelo jogador.
+* Meteoros caindo pela tela.
+* Sistema de pontuação.
+* Sistema de vidas.
+* Detecção de colisão.
+* Tela ou mensagem de fim de jogo.
+* Salvamento de recorde em arquivo.
+* Testes simples para funções da lógica do jogo.
 
-## Controles
+## Tecnologias utilizadas
 
-Informe as teclas ou comandos utilizados no jogo.
+* Python
+* Pygame
+* Git
+* GitHub
 
-Exemplo:
+## Organização planejada do projeto
 
-- Seta para cima: mover para cima
-- Seta para baixo: mover para baixo
-- Seta para esquerda: mover para esquerda
-- Seta para direita: mover para direita
-- Espaço: realizar ação
-- ESC: sair do jogo
+A organização inicial prevista para o projeto é:
 
-## Como executar o projeto
+```txt
+projeto/
+│
+├── main.py
+├── README.md
+├── docs/
+│   └── proposta.md
+├── src/
+│   ├── config.py
+│   ├── jogo.py
+│   ├── funcoes.py
+│   └── dados.py
+└── tests/
+    └── test_funcoes.py
+```
 
-### 1. Clonar o repositório
+## Descrição dos arquivos planejados
+
+* `main.py`: arquivo principal responsável por iniciar o jogo.
+* `docs/proposta.md`: proposta inicial do jogo.
+* `src/config.py`: configurações gerais, como tamanho da tela, cores e velocidades.
+* `src/jogo.py`: loop principal e controle da partida.
+* `src/funcoes.py`: funções auxiliares, como movimentação, colisão e pontuação.
+* `src/dados.py`: leitura e escrita de dados em arquivo, como o recorde.
+* `tests/test_funcoes.py`: testes simples para funções de lógica do jogo.
+
+## Como executar
+
+As instruções completas de execução serão atualizadas nas próximas etapas do projeto, após a implementação do protótipo inicial.
+
+Previsão de execução:
 
 ```bash
-git clone LINK_DO_REPOSITORIO
-cd NOME_DA_PASTA
-pip install -r requirements.txt
 python main.py
 ```
 
-## Como executar os testes
+Caso seja necessário instalar o Pygame, o comando será:
 
 ```bash
-python -m pytest
+pip install pygame
 ```
 
-## Checklist mínimo para entrega
+## Entregas do projeto
 
-- Preencher este README com nome final, descrição real, regras e controles do jogo.
-- Atualizar `docs/proposta.MD` com a proposta do grupo.
-- Garantir que o jogo executa com `python main.py`.
-- Garantir que os testes passam com `pytest`.
+### Semana 1 — Proposta inicial
 
-## Observações para os alunos
+Nesta etapa, foi preenchido o arquivo `docs/proposta.md` com a ideia inicial do jogo, incluindo nome, tipo, descrição, objetivo, regras, controles, dificuldades esperadas e escopo mínimo.
 
-- Mantenham o código organizado em módulos pequenos e com responsabilidade clara.
-- Comentem partes importantes da lógica, principalmente regras do jogo.
-- Registrem decisões técnicas no README do grupo ao longo do desenvolvimento.
+### Semana 2 — Protótipo inicial
+
+Será desenvolvida uma primeira versão executável do jogo, contendo janela do Pygame, loop principal, movimentação da nave e pelo menos um elemento interativo na tela.
+
+### Semana 3 — Versão quase completa
+
+Será implementada a maior parte das regras principais, incluindo pontuação, vidas, colisão, estruturas de dados, uso de arquivos e testes iniciais.
+
+### Semana 4 — Entrega final
+
+Será entregue a versão final do jogo, com código organizado, documentação atualizada, testes implementados, arquivos auxiliares necessários e preparação para apresentação.
+
+## Recursos externos previstos
+
+Inicialmente, o jogo poderá utilizar apenas formas geométricas criadas pelo próprio Pygame, sem imagens externas.
+
+Caso sejam utilizadas imagens, sons, fontes ou outros recursos externos, eles serão indicados neste README com suas respectivas origens.
+
+## Integrantes
+
+* Felipe Gabriel Nogueira Aquino
+* Leonardo Martins Macedo
+* Pedro Henrique Oliveira Maia
+
+## Status do projeto
+
+Projeto em desenvolvimento.
+
+Etapa atual: Semana 1 — Proposta inicial.
