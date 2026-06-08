@@ -87,19 +87,10 @@ projeto/
 
 ## Como executar
 
-As instruções completas de execução serão atualizadas nas próximas etapas do projeto, após a implementação do protótipo inicial.
-
-Previsão de execução:
+Instale as dependências:
 
 ```bash
-python main.py
-```
-
-Caso seja necessário instalar o Pygame, o comando será:
-
-```bash
-pip install pygame
-```
+python -m pip install -r requirements.txt
 
 ## Entregas do projeto
 
@@ -135,4 +126,4 @@ Caso sejam utilizadas imagens, sons, fontes ou outros recursos externos, eles se
 
 Projeto em desenvolvimento.
 
-Etapa atual: Semana 1 — Proposta inicial.
+Etapa atual: Semana 2 — Protótipo inicial executável.
