@@ -10,11 +10,14 @@ from src.config import (
     CAMINHO_SPRITES,
     QUANTIDADE_GEMAS,
     QUANTIDADE_INIMIGOS,
+    PONTOS_VITORIA,
+    PRETO,
 )
 
 from src.funcoes import (
     calcular_pontos,
     jogador_perdeu,
+    jogador_venceu,
     limitar_valor,
     verificar_colisao,
     tomar_dano,
@@ -85,12 +88,18 @@ def executar_jogo():
     vidas = 3
     recorde = carregar_recorde(CAMINHO_RECORDE)
 
+    # Guarda a mensagem mostrada no fim da partida (vitória ou derrota).
+    mensagem_final = ""
+
     # Loop principal: processa entrada, atualiza estado e renderiza a cena.
     while rodando:
         relogio.tick(FPS)
 
         for evento in pygame.event.get():
+            # Encerramento: fechar a janela ou apertar ESC termina o jogo
             if evento.type == pygame.QUIT:
+                rodando = False
+            if evento.type == pygame.KEYDOWN and evento.key == pygame.K_ESCAPE:
                 rodando = False
 
         teclas = pygame.key.get_pressed()
@@ -132,7 +141,14 @@ def executar_jogo():
                 )
 
         # Regras de fim de jogo e recorde
+        # Condição de derrota: o jogador perdeu todas as vidas
         if jogador_perdeu(vidas):
+            mensagem_final = "GAME OVER"
+            rodando = False
+
+        # Condição de vitória: o jogador alcançou a pontuação necessária
+        if jogador_venceu(pontos, PONTOS_VITORIA):
+            mensagem_final = "VOCÊ VENCEU!"
             rodando = False
 
         if pontos > recorde:
@@ -154,4 +170,28 @@ def executar_jogo():
 
         pygame.display.flip()
 
+    # Se a partida terminou em vitória ou derrota, mostra a tela final
+    if mensagem_final != "":
+        mostrar_tela_final(tela, mensagem_final, pontos)
+
     pygame.quit()
+
+
+def mostrar_tela_final(tela, mensagem, pontos):
+    """Mostra a mensagem de fim de jogo até o jogador apertar uma tecla ou fechar."""
+    fonte_grande = pygame.font.Font(None, 72)
+    fonte_pequena = pygame.font.Font(None, 36)
+
+    texto_mensagem = fonte_grande.render(mensagem, True, PRETO)
+    texto_pontos = fonte_pequena.render(f"Pontuação final: {pontos}", True, PRETO)
+
+    tela.fill(CINZA)
+    tela.blit(texto_mensagem, texto_mensagem.get_rect(center=(LARGURA_TELA // 2, ALTURA_TELA // 2 - 30)))
+    tela.blit(texto_pontos, texto_pontos.get_rect(center=(LARGURA_TELA // 2, ALTURA_TELA // 2 + 30)))
+    pygame.display.flip()
+
+    esperando = True
+    while esperando:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT or evento.type == pygame.KEYDOWN:
+                esperando = False

@@ -23,6 +23,11 @@ def jogador_perdeu(vidas):
     return vidas <= 0
 
 
+def jogador_venceu(pontos, pontos_para_vencer):
+    """Indica se o jogador alcançou a pontuação necessária para vencer."""
+    return pontos >= pontos_para_vencer
+
+
 def limitar_valor(valor, minimo, maximo):
     """Mantém um valor dentro do intervalo [minimo, maximo]."""
     if valor < minimo:

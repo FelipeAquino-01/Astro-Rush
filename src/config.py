@@ -9,6 +9,9 @@ TITULO_JOGO = "Projeto Final - Pygame"
 QUANTIDADE_GEMAS = 3
 QUANTIDADE_INIMIGOS = 2
 
+# Pontuação que o jogador precisa alcançar para vencer.
+PONTOS_VITORIA = 100
+
 BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)
 CINZA = (212,212,212)

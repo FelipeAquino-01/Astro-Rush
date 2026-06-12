@@ -1,4 +1,10 @@
-from src.funcoes import calcular_pontos, jogador_perdeu, limitar_valor, sortear_posicao
+from src.funcoes import (
+    calcular_pontos,
+    jogador_perdeu,
+    jogador_venceu,
+    limitar_valor,
+    sortear_posicao,
+)
 
 
 def test_calcular_pontos():
@@ -14,6 +20,16 @@ def test_jogador_perdeu_com_zero_vidas():
 def test_jogador_nao_perdeu_com_vidas():
     """Nao deve indicar derrota quando o jogador ainda tem vidas."""
     assert jogador_perdeu(3) is False
+
+
+def test_jogador_venceu_com_pontos_suficientes():
+    """Deve indicar vitoria quando os pontos alcancam a meta."""
+    assert jogador_venceu(100, 100) is True
+
+
+def test_jogador_nao_venceu_com_poucos_pontos():
+    """Nao deve indicar vitoria quando os pontos estao abaixo da meta."""
+    assert jogador_venceu(90, 100) is False
 
 
 def test_limitar_valor_abaixo_do_minimo():
