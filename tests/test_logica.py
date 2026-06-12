@@ -1,4 +1,4 @@
-from src.funcoes import calcular_pontos, jogador_perdeu, limitar_valor
+from src.funcoes import calcular_pontos, jogador_perdeu, limitar_valor, sortear_posicao
 
 
 def test_calcular_pontos():
@@ -29,3 +29,11 @@ def test_limitar_valor_acima_do_maximo():
 def test_limitar_valor_dentro_do_intervalo():
     """Deve manter o valor original quando ele ja estiver no intervalo."""
     assert limitar_valor(50, 0, 100) == 50
+
+
+def test_sortear_posicao_dentro_dos_limites():
+    """Deve sortear posicoes sempre dentro dos limites informados."""
+    for _ in range(50):
+        x, y = sortear_posicao(100, 200)
+        assert 0 <= x <= 100
+        assert 0 <= y <= 200

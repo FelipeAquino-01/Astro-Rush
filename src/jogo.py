@@ -8,6 +8,8 @@ from src.config import (
     CINZA,
     CAMINHO_RECORDE,
     CAMINHO_SPRITES,
+    QUANTIDADE_GEMAS,
+    QUANTIDADE_INIMIGOS,
 )
 
 from src.funcoes import (
@@ -16,6 +18,7 @@ from src.funcoes import (
     limitar_valor,
     verificar_colisao,
     tomar_dano,
+    sortear_posicao,
 )
 from src.sprites import pegar_sprite
 from src.dados import (
@@ -53,15 +56,29 @@ def executar_jogo():
         "rect": player_image.get_rect(topleft=(100, 100))
     }
 
-    gema = {
-        "imagem": gem_image,
-        "rect": gem_image.get_rect(topleft=(500, 300))
-    }
-    
-    inimigo = {
-        "imagem": bat_image,
-        "rect": bat_image.get_rect(topleft=(200, 500))
-    }
+    # Listas de dicionários: cada gema e cada inimigo é um dicionário
+    # com sua imagem e seu rect, guardados dentro de uma lista.
+    gemas = []
+    for _ in range(QUANTIDADE_GEMAS):
+        posicao = sortear_posicao(
+            LARGURA_TELA - gem_image.get_width(),
+            ALTURA_TELA - gem_image.get_height(),
+        )
+        gemas.append({
+            "imagem": gem_image,
+            "rect": gem_image.get_rect(topleft=posicao)
+        })
+
+    inimigos = []
+    for _ in range(QUANTIDADE_INIMIGOS):
+        posicao = sortear_posicao(
+            LARGURA_TELA - bat_image.get_width(),
+            ALTURA_TELA - bat_image.get_height(),
+        )
+        inimigos.append({
+            "imagem": bat_image,
+            "rect": bat_image.get_rect(topleft=posicao)
+        })
 
     velocidade = 5
     pontos = 0
@@ -92,32 +109,27 @@ def executar_jogo():
         jogador["rect"].x = limitar_valor(jogador["rect"].x, 0, LARGURA_TELA - jogador["rect"].width)
         jogador["rect"].y = limitar_valor(jogador["rect"].y, 0, ALTURA_TELA - jogador["rect"].height)
 
-        # Verificação de colisão com a Gema (antigo 'item')
-        if verificar_colisao(jogador["rect"], gema["rect"]):
-            pontos = calcular_pontos(pontos, 10)
+        # Verificação de colisão com cada gema da lista
+        for gema in gemas:
+            if verificar_colisao(jogador["rect"], gema["rect"]):
+                pontos = calcular_pontos(pontos, 10)
 
-            # Move a gema de lugar ao coletar
-            gema["rect"].x += 80
-            gema["rect"].y += 50
+                # Move a gema para uma nova posição aleatória ao coletar
+                gema["rect"].topleft = sortear_posicao(
+                    LARGURA_TELA - gema["rect"].width,
+                    ALTURA_TELA - gema["rect"].height,
+                )
 
-            # Se a gema sair da tela, volta para uma posição segura
-            if gema["rect"].x > LARGURA_TELA - gema["rect"].width:
-                gema["rect"].x = 50
-            if gema["rect"].y > ALTURA_TELA - gema["rect"].height:
-                gema["rect"].y = 50
+        # Verificação de colisão com cada inimigo da lista
+        for inimigo in inimigos:
+            if verificar_colisao(jogador["rect"], inimigo["rect"]):
+                vidas = tomar_dano(vidas, 1)
 
-        # Verificação de colisão com o Inimigo
-        if verificar_colisao(jogador["rect"], inimigo["rect"]):
-            vidas = tomar_dano(vidas, 1)
-
-            # Afasta o inimigo ao colidir
-            inimigo["rect"].x += 80
-            inimigo["rect"].y += 50
-
-            if inimigo["rect"].x > LARGURA_TELA - inimigo["rect"].width:
-                inimigo["rect"].x = 50
-            if inimigo["rect"].y > ALTURA_TELA - inimigo["rect"].height:
-                inimigo["rect"].y = 50
+                # Afasta o inimigo para uma nova posição aleatória ao colidir
+                inimigo["rect"].topleft = sortear_posicao(
+                    LARGURA_TELA - inimigo["rect"].width,
+                    ALTURA_TELA - inimigo["rect"].height,
+                )
 
         # Regras de fim de jogo e recorde
         if jogador_perdeu(vidas):
@@ -133,9 +145,11 @@ def executar_jogo():
 
         tela.fill(CINZA)
 
-        # Desenhando os elementos na tela passando a imagem e o rect de cada dicionário
-        tela.blit(gema["imagem"], gema["rect"])
-        tela.blit(inimigo["imagem"], inimigo["rect"])
+        # Desenhando os elementos na tela percorrendo as listas de dicionários
+        for gema in gemas:
+            tela.blit(gema["imagem"], gema["rect"])
+        for inimigo in inimigos:
+            tela.blit(inimigo["imagem"], inimigo["rect"])
         tela.blit(jogador["imagem"], jogador["rect"])
 
         pygame.display.flip()

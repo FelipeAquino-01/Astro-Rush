@@ -1,3 +1,13 @@
+import random
+
+
+def sortear_posicao(largura_maxima, altura_maxima):
+    """Sorteia uma posição (x, y) aleatória dentro dos limites informados."""
+    x = random.randint(0, largura_maxima)
+    y = random.randint(0, altura_maxima)
+    return (x, y)
+
+
 def calcular_pontos(pontos_atual, pontos_ganhos):
     """Soma os pontos ganhos à pontuação atual."""
     return pontos_atual + pontos_ganhos
