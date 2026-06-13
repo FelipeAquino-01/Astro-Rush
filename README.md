@@ -92,6 +92,15 @@ Instale as dependências:
 ```bash
 python -m pip install -r requirements.txt
 
+## Como executar os testes
+
+O projeto utiliza `pytest` para executar testes simples da lógica do jogo.
+
+Para rodar os testes, use:
+
+```bash
+python -m pytest
+
 ## Entregas do projeto
 
 ### Semana 1 — Proposta inicial
@@ -126,4 +135,4 @@ Caso sejam utilizadas imagens, sons, fontes ou outros recursos externos, eles se
 
 Projeto em desenvolvimento.
 
-Etapa atual: Semana 2 — Protótipo inicial executável.
+Etapa atual: Semana 3 — Interações e regras principais.

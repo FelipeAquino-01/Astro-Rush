@@ -1,31 +1,86 @@
-from src.funcoes import calcular_pontos, jogador_perdeu, limitar_valor
+from src.funcoes import (
+    criar_jogador,
+    criar_lista_meteoros,
+    atualizar_meteoros,
+    verificar_colisao,
+    jogador_perdeu,
+)
+
+from src.dados import salvar_recorde, carregar_recorde
+from src.config import ALTURA_TELA
 
 
-def test_calcular_pontos():
-    """Deve somar corretamente os pontos atuais com os pontos ganhos."""
-    assert calcular_pontos(10, 5) == 15
+def test_criar_jogador_com_3_vidas():
+    jogador = criar_jogador()
+
+    assert jogador["vidas"] == 3
+    assert jogador["rect"].width > 0
+    assert jogador["rect"].height > 0
+
+
+def test_criar_lista_meteoros():
+    meteoros = criar_lista_meteoros(3)
+
+    assert len(meteoros) == 3
+
+
+def test_atualizar_meteoros_soma_pontos_quando_meteoro_sai_da_tela():
+    meteoros = criar_lista_meteoros(1)
+
+    meteoros[0]["rect"].top = ALTURA_TELA + 10
+
+    pontos = atualizar_meteoros(meteoros)
+
+    assert pontos == 1
+
+
+def test_verificar_colisao_retorna_true():
+    jogador = criar_jogador()
+
+    meteoros = [
+        {
+            "rect": jogador["rect"].copy(),
+            "velocidade": 5
+        }
+    ]
+
+    resultado = verificar_colisao(jogador, meteoros)
+
+    assert resultado is True
 
 
 def test_jogador_perdeu_com_zero_vidas():
-    """Deve indicar derrota quando o total de vidas chega a zero."""
-    assert jogador_perdeu(0) is True
+    jogador = {
+        "vidas": 0
+    }
+
+    assert jogador_perdeu(jogador) is True
 
 
-def test_jogador_nao_perdeu_com_vidas():
-    """Nao deve indicar derrota quando o jogador ainda tem vidas."""
-    assert jogador_perdeu(3) is False
+def test_carregar_recorde_arquivo_inexistente(tmp_path):
+    arquivo = tmp_path / "ranking.txt"
+
+    resultado = carregar_recorde(arquivo)
+
+    assert resultado == 0
 
 
-def test_limitar_valor_abaixo_do_minimo():
-    """Deve retornar o limite minimo quando o valor informado for menor."""
-    assert limitar_valor(-5, 0, 100) == 0
+def test_salvar_e_carregar_recorde(tmp_path):
+    arquivo = tmp_path / "ranking.txt"
+
+    salvar_recorde(arquivo, 50)
+
+    resultado = carregar_recorde(arquivo)
+
+    assert resultado == 50
 
 
-def test_limitar_valor_acima_do_maximo():
-    """Deve retornar o limite maximo quando o valor informado for maior."""
-    assert limitar_valor(150, 0, 100) == 100
+def test_salvar_recorde_nao_diminui_pontuacao(tmp_path):
+    arquivo = tmp_path / "ranking.txt"
 
+    salvar_recorde(arquivo, 100)
+    salvar_recorde(arquivo, 40)
 
-def test_limitar_valor_dentro_do_intervalo():
-    """Deve manter o valor original quando ele ja estiver no intervalo."""
-    assert limitar_valor(50, 0, 100) == 50
+    resultado = carregar_recorde(arquivo)
+
+    assert resultado == 100
