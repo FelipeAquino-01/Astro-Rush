@@ -6,6 +6,9 @@ FPS = 60
 
 TITULO_JOGO = "Astro Rush"
 
+# Pontuação necessária para vencer
+PONTOS_VITORIA = 100
+
 # Cores em RGB
 BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)

@@ -9,7 +9,41 @@ from src.config import (
     LARGURA_METEORO,
     ALTURA_METEORO,
     VELOCIDADE_METEORO,
+    VELOCIDADE_NAVE,
 )
+
+
+def sortear_posicao(largura_maxima, altura_maxima):
+    """Sorteia uma posição (x, y) aleatória dentro dos limites informados."""
+    x = random.randint(0, largura_maxima)
+    y = random.randint(0, altura_maxima)
+    return x, y
+
+
+def calcular_pontos(pontos_atual, pontos_ganhos):
+    """Soma os pontos ganhos à pontuação atual."""
+    return pontos_atual + pontos_ganhos
+
+
+def tomar_dano(vida_atual, dano):
+    """Reduz a vida atual com base no dano recebido."""
+    return vida_atual - dano
+
+
+def jogador_venceu(pontos, pontos_para_vencer):
+    """Indica se o jogador alcançou a pontuação necessária para vencer."""
+    return pontos >= pontos_para_vencer
+
+
+def limitar_valor(valor, minimo, maximo):
+    """Mantém um valor dentro do intervalo [minimo, maximo]."""
+    if valor < minimo:
+        return minimo
+
+    if valor > maximo:
+        return maximo
+
+    return valor
 
 
 def criar_jogador():
@@ -42,7 +76,7 @@ def criar_lista_meteoros(quantidade):
     """Cria uma lista com vários meteoros."""
     meteoros = []
 
-    for i in range(quantidade):
+    for _ in range(quantidade):
         meteoros.append(criar_meteoro())
 
     return meteoros
@@ -51,17 +85,16 @@ def criar_lista_meteoros(quantidade):
 def mover_jogador(jogador, teclas):
     """Move a nave do jogador para esquerda e direita."""
     if teclas[pygame.K_LEFT]:
-        jogador["rect"].x -= 7
+        jogador["rect"].x -= VELOCIDADE_NAVE
 
     if teclas[pygame.K_RIGHT]:
-        jogador["rect"].x += 7
+        jogador["rect"].x += VELOCIDADE_NAVE
 
-    # Impede a nave de sair da tela
-    if jogador["rect"].left < 0:
-        jogador["rect"].left = 0
-
-    if jogador["rect"].right > LARGURA_TELA:
-        jogador["rect"].right = LARGURA_TELA
+    jogador["rect"].x = limitar_valor(
+        jogador["rect"].x,
+        0,
+        LARGURA_TELA - jogador["rect"].width
+    )
 
 
 def mover_meteoros(meteoros):
@@ -92,16 +125,31 @@ def atualizar_meteoros(meteoros):
     return pontos_ganhos
 
 
-def verificar_colisao(jogador, meteoros):
-    """Verifica se a nave colidiu com algum meteoro."""
-    for meteoro in meteoros:
-        if jogador["rect"].colliderect(meteoro["rect"]):
-            reposicionar_meteoro(meteoro)
-            return True
+def verificar_colisao(objeto_1, objeto_2):
+    """
+    Verifica colisão.
 
-    return False
+    Pode receber:
+    - jogador e lista de meteoros;
+    - dois retângulos do Pygame.
+    """
+    if isinstance(objeto_2, list):
+        jogador = objeto_1
+        meteoros = objeto_2
+
+        for meteoro in meteoros:
+            if jogador["rect"].colliderect(meteoro["rect"]):
+                reposicionar_meteoro(meteoro)
+                return True
+
+        return False
+
+    return objeto_1.colliderect(objeto_2)
 
 
-def jogador_perdeu(jogador):
+def jogador_perdeu(jogador_ou_vidas):
     """Verifica se o jogador ficou sem vidas."""
-    return jogador["vidas"] <= 0
+    if isinstance(jogador_ou_vidas, dict):
+        return jogador_ou_vidas["vidas"] <= 0
+
+    return jogador_ou_vidas <= 0

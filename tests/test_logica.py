@@ -4,6 +4,10 @@ from src.funcoes import (
     atualizar_meteoros,
     verificar_colisao,
     jogador_perdeu,
+    calcular_pontos,
+    jogador_venceu,
+    limitar_valor,
+    sortear_posicao,
 )
 
 from src.dados import salvar_recorde, carregar_recorde
@@ -55,6 +59,34 @@ def test_jogador_perdeu_com_zero_vidas():
     }
 
     assert jogador_perdeu(jogador) is True
+
+
+def test_calcular_pontos():
+    assert calcular_pontos(10, 5) == 15
+
+
+def test_jogador_venceu_com_pontos_suficientes():
+    assert jogador_venceu(100, 100) is True
+
+
+def test_jogador_nao_venceu_com_poucos_pontos():
+    assert jogador_venceu(90, 100) is False
+
+
+def test_limitar_valor_abaixo_do_minimo():
+    assert limitar_valor(-5, 0, 100) == 0
+
+
+def test_limitar_valor_dentro_do_intervalo():
+    assert limitar_valor(50, 0, 100) == 50
+
+
+def test_sortear_posicao_dentro_dos_limites():
+    for _ in range(50):
+        x, y = sortear_posicao(100, 200)
+
+        assert 0 <= x <= 100
+        assert 0 <= y <= 200
 
 
 def test_carregar_recorde_arquivo_inexistente(tmp_path):
