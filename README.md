@@ -91,6 +91,13 @@ Instale as dependências:
 
 ```bash
 python -m pip install -r requirements.txt
+```
+
+Execute o jogo:
+
+```bash
+python main.py
+```
 
 ## Como executar os testes
 
@@ -100,6 +107,9 @@ Para rodar os testes, use:
 
 ```bash
 python -m pytest
+```
+
+Os testes verificam funções relacionadas à criação do jogador, criação dos meteoros, colisão, derrota, pontuação, vitória e leitura/escrita do ranking.
 
 ## Entregas do projeto
 
@@ -109,11 +119,11 @@ Nesta etapa, foi preenchido o arquivo `docs/proposta.md` com a ideia inicial do 
 
 ### Semana 2 — Protótipo inicial
 
-Será desenvolvida uma primeira versão executável do jogo, contendo janela do Pygame, loop principal, movimentação da nave e pelo menos um elemento interativo na tela.
+Nesta etapa, foi desenvolvida uma primeira versão executável do jogo, contendo janela do Pygame, loop principal, movimentação da nave e elementos interativos na tela.
 
-### Semana 3 — Versão quase completa
+### Semana 3 — Interações e regras principais
 
-Será implementada a maior parte das regras principais, incluindo pontuação, vidas, colisão, estruturas de dados, uso de arquivos e testes iniciais.
+Nesta etapa, o jogo passou a ter uma versão quase completa, contendo as principais interações, sistema de pontuação, sistema de vidas, ranking em arquivo, condição de vitória, condição de derrota, uso de estruturas de dados e primeira versão dos testes automatizados.
 
 ### Semana 4 — Entrega final
 
@@ -121,7 +131,7 @@ Será entregue a versão final do jogo, com código organizado, documentação a
 
 ## Recursos externos previstos
 
-Inicialmente, o jogo poderá utilizar apenas formas geométricas criadas pelo próprio Pygame, sem imagens externas.
+Inicialmente, o jogo utiliza formas geométricas criadas pelo próprio Pygame, sem imagens externas obrigatórias.
 
 Caso sejam utilizadas imagens, sons, fontes ou outros recursos externos, eles serão indicados neste README com suas respectivas origens.
 
