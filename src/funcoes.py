@@ -25,25 +25,29 @@ def criar_jogador():
     return jogador
 
 
-def criar_meteoro():
+def criar_meteoro(velocidade_base=None):
     """Cria um meteoro em uma posição aleatória no topo da tela."""
+    if velocidade_base is None:
+        velocidade_base = VELOCIDADE_METEORO
+
     x = random.randint(0, LARGURA_TELA - LARGURA_METEORO)
     y = random.randint(-300, -40)
 
     meteoro = {
         "rect": pygame.Rect(x, y, LARGURA_METEORO, ALTURA_METEORO),
-        "velocidade": VELOCIDADE_METEORO
+        "velocidade": velocidade_base + random.randint(-1, 2),
+        "tom": random.randint(0, 2),
     }
 
     return meteoro
 
 
-def criar_lista_meteoros(quantidade):
+def criar_lista_meteoros(quantidade, velocidade_base=None):
     """Cria uma lista com vários meteoros."""
     meteoros = []
 
     for i in range(quantidade):
-        meteoros.append(criar_meteoro())
+        meteoros.append(criar_meteoro(velocidade_base))
 
     return meteoros
 
@@ -70,13 +74,16 @@ def mover_meteoros(meteoros):
         meteoro["rect"].y += meteoro["velocidade"]
 
 
-def reposicionar_meteoro(meteoro):
+def reposicionar_meteoro(meteoro, velocidade_base=None):
     """Reposiciona um meteoro no topo da tela."""
     meteoro["rect"].x = random.randint(0, LARGURA_TELA - LARGURA_METEORO)
     meteoro["rect"].y = random.randint(-300, -40)
 
+    if velocidade_base is not None:
+        meteoro["velocidade"] = velocidade_base + random.randint(-1, 2)
 
-def atualizar_meteoros(meteoros):
+
+def atualizar_meteoros(meteoros, velocidade_base=None):
     """
     Verifica se os meteoros saíram da tela.
     Quando um meteoro passa pela tela, ele volta para o topo.
@@ -86,17 +93,17 @@ def atualizar_meteoros(meteoros):
 
     for meteoro in meteoros:
         if meteoro["rect"].top > ALTURA_TELA:
-            reposicionar_meteoro(meteoro)
+            reposicionar_meteoro(meteoro, velocidade_base)
             pontos_ganhos += 1
 
     return pontos_ganhos
 
 
-def verificar_colisao(jogador, meteoros):
+def verificar_colisao(jogador, meteoros, velocidade_base=None):
     """Verifica se a nave colidiu com algum meteoro."""
     for meteoro in meteoros:
         if jogador["rect"].colliderect(meteoro["rect"]):
-            reposicionar_meteoro(meteoro)
+            reposicionar_meteoro(meteoro, velocidade_base)
             return True
 
     return False
