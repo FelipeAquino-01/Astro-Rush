@@ -1,20 +1,29 @@
-# Configurações centrais do jogo (tela, cores e caminhos de arquivos).
+# Configurações centrais do jogo
+
 LARGURA_TELA = 800
 ALTURA_TELA = 600
 FPS = 60
 
-TITULO_JOGO = "Projeto Final - Pygame"
+TITULO_JOGO = "Astro Rush"
 
-# Quantidade de elementos criados nas listas de sprites do jogo.
-QUANTIDADE_GEMAS = 3
-QUANTIDADE_INIMIGOS = 2
-
-# Pontuação que o jogador precisa alcançar para vencer.
-PONTOS_VITORIA = 100
-
+# Cores em RGB
 BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)
-CINZA = (212,212,212)
+CINZA = (80, 80, 80)
+AZUL = (50, 120, 255)
+VERMELHO = (220, 50, 50)
+AMARELO = (255, 220, 80)
 
-CAMINHO_RECORDE = "data/recorde.txt"
-CAMINHO_SPRITES = "assets/imagens/spritesheet.bmp"
+# Jogador
+LARGURA_NAVE = 50
+ALTURA_NAVE = 40
+VELOCIDADE_NAVE = 7
+
+# Meteoro
+LARGURA_METEORO = 40
+ALTURA_METEORO = 40
+VELOCIDADE_METEORO = 5
+QUANTIDADE_METEOROS = 3
+
+# Arquivos
+CAMINHO_RECORDE = "data/ranking.txt"
