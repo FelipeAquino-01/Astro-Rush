@@ -29,24 +29,29 @@ O jogador deve controlar a nave espacial, desviar dos meteoros e alcançar a mai
 * A partida termina quando as vidas chegam a zero.
 * O jogo poderá salvar o maior recorde em um arquivo.
 
-## Controles previstos
+## Controles
 
 * Seta para esquerda: mover a nave para a esquerda.
 * Seta para direita: mover a nave para a direita.
+* ENTER: iniciar a partida a partir da tela de início.
 * Tecla R: reiniciar a partida após o fim do jogo.
-* Tecla ESC: sair do jogo.
+* Tecla ESC: sair do jogo (funciona na tela de início e durante a partida).
 
-## Funcionalidades previstas
+## Funcionalidades
 
+* Tela de início com título, instruções de controles e recorde atual.
 * Janela principal do jogo com Pygame.
-* Nave controlável pelo jogador.
-* Meteoros caindo pela tela.
-* Sistema de pontuação.
+* Nave controlável pelo jogador (com sombra e contorno).
+* Meteoros caindo pela tela (com contorno colorido).
+* Fundo com estrelas em movimento (efeito parallax).
+* Sistema de pontuação com exibição do nível atual no HUD.
 * Sistema de vidas.
 * Detecção de colisão.
-* Tela ou mensagem de fim de jogo.
+* Dificuldade progressiva: a cada 10 pontos o nível sobe, aumentando a velocidade dos meteoros; a cada 2 níveis, um meteoro extra aparece na tela.
+* Tela de fim de jogo com cores distintas para vitória (verde) e derrota (vermelho).
 * Salvamento de recorde em arquivo.
-* Testes simples para funções da lógica do jogo.
+* Infraestrutura de efeitos sonoros: coloque arquivos `.wav` em `assets/sons/` e eles serão carregados automaticamente (sem erro se ausentes).
+* Testes automatizados para funções de lógica e dificuldade.
 
 ## Tecnologias utilizadas
 
@@ -115,19 +120,23 @@ Os testes verificam funções relacionadas à criação do jogador, criação do
 
 ### Semana 1 — Proposta inicial
 
-Nesta etapa, foi preenchido o arquivo `docs/proposta.md` com a ideia inicial do jogo, incluindo nome, tipo, descrição, objetivo, regras, controles, dificuldades esperadas e escopo mínimo.
+Preenchido o arquivo `docs/proposta.md` com a ideia inicial do jogo.
 
 ### Semana 2 — Protótipo inicial
 
-Nesta etapa, foi desenvolvida uma primeira versão executável do jogo, contendo janela do Pygame, loop principal, movimentação da nave e elementos interativos na tela.
+Primeira versão executável: janela do Pygame, loop principal, movimentação da nave.
 
 ### Semana 3 — Interações e regras principais
 
-Nesta etapa, o jogo passou a ter uma versão quase completa, contendo as principais interações, sistema de pontuação, sistema de vidas, ranking em arquivo, condição de vitória, condição de derrota, uso de estruturas de dados e primeira versão dos testes automatizados.
+Sistema de pontuação, vidas, ranking em arquivo, condição de vitória/derrota, estruturas de dados e testes automatizados.
 
 ### Semana 4 — Entrega final
 
-Será entregue a versão final do jogo, com código organizado, documentação atualizada, testes implementados, arquivos auxiliares necessários e preparação para apresentação.
+- Tela de início com instruções e recorde.
+- Dificuldade progressiva por nível (velocidade e quantidade de meteoros).
+- Melhoria estética: estrelas com parallax, sombra/contorno na nave, contorno nos meteoros, cores distintas na tela de fim.
+- Módulo `src/sons.py` com carregamento seguro de efeitos sonoros `.wav`.
+- Novos testes automatizados para as funções de dificuldade (26 testes no total).
 
 ## Recursos externos previstos
 
@@ -143,6 +152,4 @@ Caso sejam utilizadas imagens, sons, fontes ou outros recursos externos, eles se
 
 ## Status do projeto
 
-Projeto em desenvolvimento.
-
-Etapa atual: Semana 3 — Interações e regras principais.
+Versão final entregue — Semana 4.

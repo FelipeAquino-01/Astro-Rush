@@ -153,3 +153,42 @@ def jogador_perdeu(jogador_ou_vidas):
         return jogador_ou_vidas["vidas"] <= 0
 
     return jogador_ou_vidas <= 0
+
+
+def calcular_nivel(pontos, pontos_por_nivel):
+    """Retorna o nível atual baseado na pontuação (começa em 1)."""
+    if pontos_por_nivel <= 0:
+        return 1
+    return (pontos // pontos_por_nivel) + 1
+
+
+def calcular_velocidade_meteoro(nivel, velocidade_base, velocidade_max):
+    """Retorna a velocidade dos meteoros para o nível dado."""
+    velocidade = velocidade_base + (nivel - 1)
+    return limitar_valor(velocidade, velocidade_base, velocidade_max)
+
+
+def calcular_quantidade_meteoros(nivel, quantidade_base, quantidade_max):
+    """A cada 2 níveis adiciona mais um meteoro (começa a aumentar no nível 3)."""
+    extras = (nivel - 1) // 2
+    quantidade = quantidade_base + extras
+    return limitar_valor(quantidade, quantidade_base, quantidade_max)
+
+
+def ajustar_dificuldade(meteoros, pontos, velocidade_base, velocidade_max,
+                        quantidade_base, quantidade_max, pontos_por_nivel):
+    """
+    Ajusta velocidade e quantidade de meteoros conforme os pontos atuais.
+    Retorna (meteoros_atualizados, nivel_atual).
+    """
+    nivel = calcular_nivel(pontos, pontos_por_nivel)
+    nova_velocidade = calcular_velocidade_meteoro(nivel, velocidade_base, velocidade_max)
+    nova_quantidade = calcular_quantidade_meteoros(nivel, quantidade_base, quantidade_max)
+
+    for meteoro in meteoros:
+        meteoro["velocidade"] = nova_velocidade
+
+    while len(meteoros) < nova_quantidade:
+        meteoros.append(criar_meteoro())
+
+    return meteoros, nivel
